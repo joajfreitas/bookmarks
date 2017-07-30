@@ -5,7 +5,13 @@ run_rofi () {
 }
 
 addBookmark () {
-	URL=$(run_rofi -mesg "Insert an url.")
+	which xsel
+	if [[ $? -eq 1 ]]; then
+		prefilled=""
+	else
+		prefilled=$(xsel)
+	fi
+	URL=$(echo $prefilled | head -n1 | run_rofi -mesg "Insert an url.")
 	if [[ $? -eq 1 ]]; then
 		exit
 	fi
@@ -19,7 +25,7 @@ addBookmark () {
 
 openURL () {
 	number=$1
-	$BROWSER $(bookmarks -f ${number::-1} $DB)
+	xdg-open $(bookmarks find ${number::-1} $DB)
 }
 
 listTags () {
