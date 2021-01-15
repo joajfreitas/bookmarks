@@ -32,7 +32,7 @@ setup(
         'click',
         'jinja2',
         'beautifulsoup4',
-        'request',
+        'requests',
         'bottle'
     ]
 )
